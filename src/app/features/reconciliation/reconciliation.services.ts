@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { QueryParams, WriteResponse } from '../../core/http/api.models';
 import { ApiService } from '../../core/http/api.service';
-import { BankAccount, ReconciliationDetail, ReconciliationListItem } from './reconciliation.models';
+import { BankAccount, ReconciliationDetail, ReconciliationListItem, ReconciliationScope, Side } from './reconciliation.models';
 
 // Leer y descargar lo pueden todos; subir, cotejar, cerrar y eliminar, M-BOS y Contabilidad
 // ([Authorize(Roles = RoleNames.Writers)] en ReconciliationsController).
@@ -14,11 +14,12 @@ export class ReconciliationService {
   get = (id: number) => this.api.get<ReconciliationDetail>(`/reconciliations/${id}`);
   delete = (id: number) => this.api.delete(`/reconciliations/${id}`);
 
-  /** Sube el extracto del banco y el Mayor de ASSINET; el backend crea la conciliación y coteja. */
-  create(bankFile: File, ledgerFile: File): Promise<WriteResponse> {
+  /** Sube el extracto del banco y el Mayor de ASSINET; el backend guarda solo la parte elegida y coteja. */
+  create(bankFile: File, ledgerFile: File, scope: ReconciliationScope): Promise<WriteResponse> {
     const form = new FormData();
     form.append('bankFile', bankFile);
     form.append('ledgerFile', ledgerFile);
+    form.append('scope', scope);
     return this.api.postRaw<WriteResponse>('/reconciliations', form);
   }
 
@@ -35,7 +36,12 @@ export class ReconciliationService {
   notes = (id: number, note: string | null) => this.api.put(`/reconciliations/${id}/notes`, { note });
   close = (id: number) => this.api.post(`/reconciliations/${id}/close`);
   reopen = (id: number) => this.api.post(`/reconciliations/${id}/reopen`);
-  export = (id: number) => this.api.download(`/reconciliations/${id}/export`);
+  /** Todo el Excel; con side y/o status, solo esas líneas ("exportar lo que veo"). */
+  export = (id: number, side?: Side | null, status?: string | null) =>
+    this.api.download(`/reconciliations/${id}/export`, { side, status });
+  /** Reporte anual por meses; sin cuenta, todas. */
+  annualReport = (year: number, bankAccountId?: number | null) =>
+    this.api.download('/reconciliations/annual-report', { year, bankAccountId });
 }
 
 @Injectable({ providedIn: 'root' })

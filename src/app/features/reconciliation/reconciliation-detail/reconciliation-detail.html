@@ -60,46 +60,54 @@
       </div>
     </div>
 
-    <!-- Saldos -->
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="rounded-lg border border-border bg-surface p-4">
-        <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.ledger' | translate }}</span>
-        <span class="text-lg font-semibold tabular-nums text-foreground">{{ d.ledgerClosingBalance | money }}</span>
+    <!-- Saldos (con las dos partes) o totales de la parte conciliada -->
+    @if (!singleScope()) {
+      <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-lg border border-border bg-surface p-4">
+          <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.ledger' | translate }}</span>
+          <span class="text-lg font-semibold tabular-nums text-foreground">{{ d.ledgerClosingBalance | money }}</span>
+        </div>
+        <div class="rounded-lg border border-border bg-surface p-4">
+          <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.bank' | translate }}</span>
+          <span class="text-lg font-semibold tabular-nums text-foreground">{{ d.bankClosingBalance | money }}</span>
+        </div>
+        <div class="rounded-lg border border-border bg-surface p-4">
+          <app-tooltip [text]="'reconciliation.balances.reconciledHint' | translate">
+            <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.reconciled' | translate }}</span>
+          </app-tooltip>
+          <span class="block text-lg font-semibold tabular-nums text-foreground">{{ d.reconciledBalance | money }}</span>
+        </div>
+        <div class="rounded-lg border p-4" [class]="balanced() ? 'border-success/40 bg-success/5' : 'border-danger/40 bg-danger/5'">
+          <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.unexplained' | translate }}</span>
+          <span class="text-lg font-semibold tabular-nums" [class]="balanced() ? 'text-success' : 'text-danger'">{{ d.unexplainedDifference | money: true }}</span>
+        </div>
       </div>
-      <div class="rounded-lg border border-border bg-surface p-4">
-        <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.bank' | translate }}</span>
-        <span class="text-lg font-semibold tabular-nums text-foreground">{{ d.bankClosingBalance | money }}</span>
-      </div>
-      <div class="rounded-lg border border-border bg-surface p-4">
-        <app-tooltip [text]="'reconciliation.balances.reconciledHint' | translate">
-          <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.reconciled' | translate }}</span>
-        </app-tooltip>
-        <span class="block text-lg font-semibold tabular-nums text-foreground">{{ d.reconciledBalance | money }}</span>
-      </div>
-      <div class="rounded-lg border p-4" [class]="balanced() ? 'border-success/40 bg-success/5' : 'border-danger/40 bg-danger/5'">
-        <span class="block text-xs text-muted-foreground">{{ 'reconciliation.balances.unexplained' | translate }}</span>
-        <span class="text-lg font-semibold tabular-nums" [class]="balanced() ? 'text-success' : 'text-danger'">{{ d.unexplainedDifference | money: true }}</span>
-      </div>
-    </div>
+    }
 
     @if (d.notes) {
       <p class="rounded-md border border-border bg-surface p-3 text-sm whitespace-pre-line text-foreground">{{ d.notes }}</p>
     }
 
-    <!-- Ingresos / Egresos -->
+    <!-- Ingresos / Egresos (con las dos partes) o el nombre de la parte conciliada -->
     <div class="flex flex-wrap items-end justify-between gap-3 border-b border-border">
       <div class="flex gap-1">
-        @for (s of ['Income', 'Expense']; track s) {
-          @let sum = s === 'Income' ? d.income : d.expense;
-          <button
-            type="button"
-            class="-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors"
-            [class]="side() === s ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'"
-            (click)="setSide($any(s))"
-          >
-            {{ 'reconciliation.side.' + s | translate }}
-            <span class="ml-1 text-xs text-muted-foreground">{{ sum.bankCount }} / {{ sum.ledgerCount }}</span>
-          </button>
+        @if (singleScope()) {
+          <span class="-mb-px border-b-2 border-primary px-4 py-2 text-sm font-semibold text-foreground">
+            {{ 'reconciliation.scope.' + d.scope | translate }}
+          </span>
+        } @else {
+          @for (s of ['Income', 'Expense']; track s) {
+            @let sum = s === 'Income' ? d.income : d.expense;
+            <button
+              type="button"
+              class="-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors"
+              [class]="side() === s ? 'border-primary text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'"
+              (click)="setSide($any(s))"
+            >
+              {{ 'reconciliation.side.' + s | translate }}
+              <span class="ml-1 text-xs text-muted-foreground">{{ sum.bankCount }} / {{ sum.ledgerCount }}</span>
+            </button>
+          }
         }
       </div>
       @if (summary(); as sum) {
@@ -110,20 +118,62 @@
       }
     </div>
 
+    <!-- Diferencias: lo primero que hay que ver. Un clic filtra la tabla (otro clic quita el filtro). -->
+    @if (summary(); as sum) {
+      <div class="grid gap-3 sm:grid-cols-2">
+        <button
+          type="button"
+          class="flex items-center justify-between gap-3 rounded-lg border-2 p-4 text-left transition-colors"
+          [class]="filter() === 'MissingInLedger' ? 'border-danger bg-danger/10' : sum.missingInLedgerCount ? 'border-danger/40 bg-danger/5 hover:border-danger' : 'border-border bg-surface'"
+          (click)="filter.set(filter() === 'MissingInLedger' ? 'all' : 'MissingInLedger')"
+        >
+          <span class="flex flex-col">
+            <span class="text-sm font-semibold" [class]="sum.missingInLedgerCount ? 'text-danger' : 'text-foreground'">{{ 'reconciliation.missing.inLedger' | translate }}</span>
+            <span class="text-xs text-muted-foreground">{{ 'reconciliation.missing.inLedgerHint' | translate }}</span>
+          </span>
+          <span class="flex flex-col items-end">
+            <span class="text-2xl font-bold tabular-nums" [class]="sum.missingInLedgerCount ? 'text-danger' : 'text-success'">{{ sum.missingInLedgerCount }}</span>
+            <span class="text-xs tabular-nums text-muted-foreground">Bs {{ sum.missingInLedgerTotal | money }}</span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="flex items-center justify-between gap-3 rounded-lg border-2 p-4 text-left transition-colors"
+          [class]="filter() === 'MissingInBank' ? 'border-danger bg-danger/10' : sum.missingInBankCount ? 'border-danger/40 bg-danger/5 hover:border-danger' : 'border-border bg-surface'"
+          (click)="filter.set(filter() === 'MissingInBank' ? 'all' : 'MissingInBank')"
+        >
+          <span class="flex flex-col">
+            <span class="text-sm font-semibold" [class]="sum.missingInBankCount ? 'text-danger' : 'text-foreground'">{{ 'reconciliation.missing.inBank' | translate }}</span>
+            <span class="text-xs text-muted-foreground">{{ 'reconciliation.missing.inBankHint' | translate }}</span>
+          </span>
+          <span class="flex flex-col items-end">
+            <span class="text-2xl font-bold tabular-nums" [class]="sum.missingInBankCount ? 'text-danger' : 'text-success'">{{ sum.missingInBankCount }}</span>
+            <span class="text-xs tabular-nums text-muted-foreground">Bs {{ sum.missingInBankTotal | money }}</span>
+          </span>
+        </button>
+      </div>
+    }
+
     <div class="flex flex-wrap items-end justify-between gap-3">
       <div class="flex flex-wrap gap-2">
         @for (f of filters(); track f.key) {
           <button
             type="button"
             class="rounded-full border px-3 py-1 text-xs font-medium transition-colors"
-            [class]="filter() === f.key ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:bg-surface'"
+            [class]="
+              filter() === f.key
+                ? 'border-primary bg-primary text-primary-foreground'
+                : (f.key === 'MissingInLedger' || f.key === 'MissingInBank') && f.count
+                  ? 'border-danger/50 text-danger hover:bg-danger/10'
+                  : 'border-border text-foreground hover:bg-surface'
+            "
             (click)="filter.set(f.key)"
           >
             {{ 'reconciliation.filter.' + f.key | translate }} ({{ f.count }})
           </button>
         }
       </div>
-      <div class="flex w-full items-start gap-2 sm:w-auto">
+      <div class="flex w-full flex-wrap items-start gap-2 sm:w-auto">
         <div class="flex-1 sm:w-72">
           <app-input [placeholder]="'reconciliation.searchPlaceholder' | translate" [ngModel]="query()" (ngModelChange)="query.set($event)" />
         </div>
@@ -134,6 +184,14 @@
           (click)="clearFilters()"
         >
           {{ 'filters.clear' | translate }}
+        </button>
+        <button
+          type="button"
+          class="rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
+          [disabled]="exporting() || visibleLines().length === 0"
+          (click)="exportView()"
+        >
+          {{ (exporting() ? 'reports.downloading' : 'reconciliation.actions.exportView') | translate }}
         </button>
       </div>
     </div>
@@ -170,7 +228,7 @@
                     }
                   </div>
                 } @else {
-                  <span class="text-xs text-muted-foreground">—</span>
+                  <span class="text-xs font-bold tracking-wide text-danger uppercase">{{ 'reconciliation.missing.notInBank' | translate }}</span>
                 }
               </td>
               <td class="px-3 py-2 text-right align-top font-semibold tabular-nums text-foreground">{{ line.bank?.amount | money }}</td>
@@ -205,7 +263,7 @@
                     }
                   </div>
                 } @else {
-                  <span class="text-xs text-muted-foreground">—</span>
+                  <span class="text-xs font-bold tracking-wide text-danger uppercase">{{ 'reconciliation.missing.notInLedger' | translate }}</span>
                 }
               </td>
 

@@ -362,7 +362,8 @@
       "match": "Emparejar",
       "rematch": "Volver a cotejar",
       "close": "Cerrar conciliación",
-      "reopen": "Abrir de nuevo"
+      "reopen": "Abrir de nuevo",
+      "exportView": "Exportar lo que veo"
     },
     "balances": {
       "ledger": "Saldo ASSINET",
@@ -379,7 +380,8 @@
       "missingInLedger": "Falta en ASSINET",
       "missingInBank": "Falta en banco",
       "createdBy": "Subida por",
-      "department": "Departamento"
+      "department": "Departamento",
+      "scope": "Tipo"
     },
     "list": {
       "subtitle": "Una conciliación por cuenta y mes: el extracto del banco cotejado con el Mayor de ASSINET.",
@@ -403,7 +405,8 @@
       "done": "Conciliación lista.",
       "error": "No se pudo crear la conciliación.",
       "readOnly": "Tu rol solo puede consultar conciliaciones.",
-      "remove": "Quitar archivo"
+      "remove": "Quitar archivo",
+      "scopeTitle": "¿Qué vas a conciliar?"
     },
     "match": {
       "title": "Emparejar a mano",
@@ -421,6 +424,31 @@
       "editTitle": "Editar cuenta"
     },
     "deleteNote": "Borrar observación",
-    "noteDeleted": "Observación borrada."
+    "noteDeleted": "Observación borrada.",
+    "scope": {
+      "Income": "Ingresos",
+      "Expense": "Egresos",
+      "All": "Ingresos y egresos"
+    },
+    "scopeHint": {
+      "Income": "Créditos del banco con Débitos de ASSINET",
+      "Expense": "Débitos del banco con Créditos de ASSINET",
+      "All": "Las dos partes juntas, con cuadre de saldos"
+    },
+    "missing": {
+      "inLedger": "Falta en ASSINET",
+      "inLedgerHint": "Está en el banco y no está registrado",
+      "inBank": "Falta en el banco",
+      "inBankHint": "Está registrado en ASSINET y no está en el banco",
+      "notInLedger": "No está en ASSINET",
+      "notInBank": "No está en el banco"
+    },
+    "annual": {
+      "button": "Reporte anual",
+      "title": "Reporte anual por meses",
+      "description": "Excel con lo que quedó sin cotejar cada mes: los depósitos no identificados (en el banco, sin registro en ASSINET) y lo registrado que no llegó al banco.",
+      "allAccounts": "Todas las cuentas",
+      "download": "Descargar"
+    }
   }
 }

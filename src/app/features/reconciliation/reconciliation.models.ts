@@ -2,6 +2,8 @@
 
 export type ReconciliationStatus = 'Open' | 'Closed';
 export type Side = 'Income' | 'Expense';
+/** Qué se concilia: ingresos, egresos o los dos (los revisan personas distintas). */
+export type ReconciliationScope = 'All' | 'Income' | 'Expense';
 
 /** Auto, Suggested, Confirmed y Manual son cotejos; los Missing son filas sin pareja. */
 export type LineStatus = 'Auto' | 'Suggested' | 'Confirmed' | 'Manual' | 'MissingInLedger' | 'MissingInBank';
@@ -25,6 +27,7 @@ export interface ReconciliationListItem {
   periodStart: string;
   periodEnd: string;
   status: ReconciliationStatus;
+  scope: ReconciliationScope;
   matchedCount: number;
   toReviewCount: number;
   missingInLedgerCount: number;
@@ -89,6 +92,7 @@ export interface ReconciliationDetail {
   periodStart: string;
   periodEnd: string;
   status: ReconciliationStatus;
+  scope: ReconciliationScope;
   bankFileName: string;
   ledgerFileName: string;
   bankOpeningBalance: number | null;

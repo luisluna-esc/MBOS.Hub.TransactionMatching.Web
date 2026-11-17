@@ -10,6 +10,7 @@ import { FilterField, Filters, FilterValues } from '../../../shared/components/f
 import { Table, TableAction, TableColumn } from '../../../shared/components/table/table';
 import { HeaderButton, ListPage, TableRow } from '../../../shared/list-page/list-page';
 import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { AnnualReportDialog } from '../annual-report-dialog/annual-report-dialog';
 import { dmy, monthKey } from '../reconciliation-format';
 import { ReconciliationListItem } from '../reconciliation.models';
 import { ReconciliationService } from '../reconciliation.services';
@@ -35,14 +36,15 @@ export class ReconciliationsList extends ListPage<ReconciliationListItem> {
   }
 
   protected toQuery(values: FilterValues): QueryParams {
-    return { searchCriteria: values['search'], status: values['status'], year: values['year'] };
+    return { searchCriteria: values['search'], status: values['status'], year: values['year'], scope: values['scope'] };
   }
 
-  protected readonly headerButtons = computed<HeaderButton[]>(() =>
-    this.authService.canWrite()
+  protected readonly headerButtons = computed<HeaderButton[]>(() => [
+    { labelKey: 'reconciliation.annual.button', onClick: () => this.dialogService.open(AnnualReportDialog) },
+    ...(this.authService.canWrite()
       ? [{ labelKey: 'nav.newReconciliation', primary: true, onClick: () => void this.router.navigateByUrl('/reconciliations/new') }]
-      : []
-  );
+      : []),
+  ]);
 
   protected readonly filterFields = computed<FilterField[]>(() => {
     const year = new Date().getFullYear();
@@ -53,6 +55,12 @@ export class ReconciliationsList extends ListPage<ReconciliationListItem> {
         label: this.t('reconciliation.list.year'),
         type: 'select',
         options: [year, year - 1, year - 2].map((y) => ({ value: String(y), label: String(y) })),
+      },
+      {
+        key: 'scope',
+        label: this.t('reconciliation.columns.scope'),
+        type: 'select',
+        options: (['Income', 'Expense', 'All'] as const).map((s) => ({ value: s, label: this.t(`reconciliation.scope.${s}`) })),
       },
       {
         key: 'status',
@@ -75,6 +83,7 @@ export class ReconciliationsList extends ListPage<ReconciliationListItem> {
       format: (v, row) => `${this.t(monthKey(v as string))} ${(v as string).slice(0, 4)}`,
       tooltip: (_, row) => `${dmy(row.periodStart)} – ${dmy(row.periodEnd)}`,
     },
+    { key: 'scope', header: this.t('reconciliation.columns.scope'), format: (v) => this.t(`reconciliation.scope.${v}`) },
     { key: 'matchedCount', header: this.t('reconciliation.columns.matched'), align: 'center' },
     { key: 'toReviewCount', header: this.t('reconciliation.columns.toReview'), align: 'center' },
     { key: 'missingInLedgerCount', header: this.t('reconciliation.columns.missingInLedger'), align: 'center' },

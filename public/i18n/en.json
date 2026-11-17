@@ -362,7 +362,8 @@
       "match": "Match",
       "rematch": "Match again",
       "close": "Close reconciliation",
-      "reopen": "Reopen"
+      "reopen": "Reopen",
+      "exportView": "Export what I see"
     },
     "balances": {
       "ledger": "ASSINET balance",
@@ -379,7 +380,8 @@
       "missingInLedger": "Missing in ASSINET",
       "missingInBank": "Missing in bank",
       "createdBy": "Uploaded by",
-      "department": "Department"
+      "department": "Department",
+      "scope": "Type"
     },
     "list": {
       "subtitle": "One reconciliation per account and month: the bank statement matched against the ASSINET ledger.",
@@ -403,7 +405,8 @@
       "done": "Reconciliation ready.",
       "error": "The reconciliation could not be created.",
       "readOnly": "Your role can only view reconciliations.",
-      "remove": "Remove file"
+      "remove": "Remove file",
+      "scopeTitle": "What are you reconciling?"
     },
     "match": {
       "title": "Match by hand",
@@ -421,6 +424,31 @@
       "editTitle": "Edit account"
     },
     "deleteNote": "Delete note",
-    "noteDeleted": "Note deleted."
+    "noteDeleted": "Note deleted.",
+    "scope": {
+      "Income": "Income",
+      "Expense": "Expenses",
+      "All": "Income and expenses"
+    },
+    "scopeHint": {
+      "Income": "Bank credits against ASSINET debits",
+      "Expense": "Bank debits against ASSINET credits",
+      "All": "Both parts together, with balance check"
+    },
+    "missing": {
+      "inLedger": "Missing in ASSINET",
+      "inLedgerHint": "In the bank but not recorded",
+      "inBank": "Missing in bank",
+      "inBankHint": "Recorded in ASSINET but not in the bank",
+      "notInLedger": "Not in ASSINET",
+      "notInBank": "Not in the bank"
+    },
+    "annual": {
+      "button": "Annual report",
+      "title": "Annual report by month",
+      "description": "Excel with what was left unmatched each month: unidentified deposits (in the bank, not recorded in ASSINET) and recorded items that never reached the bank.",
+      "allAccounts": "All accounts",
+      "download": "Download"
+    }
   }
 }

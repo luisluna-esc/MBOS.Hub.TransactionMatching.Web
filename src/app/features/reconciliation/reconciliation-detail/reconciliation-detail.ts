@@ -55,6 +55,10 @@ export class ReconciliationDetail {
   protected readonly lineTone = LINE_STATUS_TONE;
   protected readonly statusTone = RECONCILIATION_STATUS_TONE;
 
+  /** Conciliación de solo ingresos o solo egresos: se muestra esa parte, sin pestañas ni cuadre de saldos. */
+  protected readonly singleScope = computed(() => this.detail()?.scope !== 'All');
+  protected readonly exporting = signal(false);
+
   protected readonly editable = computed(() => this.authService.canWrite() && this.detail()?.status === 'Open');
   protected readonly summary = computed(() => {
     const d = this.detail();
@@ -99,7 +103,11 @@ export class ReconciliationDetail {
   protected async load(): Promise<void> {
     this.errorCode.set(null);
     try {
-      this.detail.set(await this.reconciliationService.get(Number(this.id())));
+      const detail = await this.reconciliationService.get(Number(this.id()));
+      if (detail.scope !== 'All' && !this.detail()) {
+        this.side.set(detail.scope);
+      }
+      this.detail.set(detail);
     } catch (error) {
       this.errorCode.set(apiErrorCode(error));
     } finally {
@@ -208,6 +216,23 @@ export class ReconciliationDetail {
       saveBlob(blob, `Conciliación ${d.bankAccount.department ? d.bankAccount.department + ' ' : ''}${d.bankAccount.name} ${d.periodStart.slice(0, 7)}.xlsx`);
     } catch (error) {
       this.toastService.show(this.t('reconciliation.exportError'), apiErrorMessage(error) ?? undefined);
+    }
+  }
+
+  /** Descarga solo lo que se ve: la parte (ingresos o egresos) y el filtro de estado elegidos. */
+  protected async exportView(): Promise<void> {
+    const d = this.detail();
+    if (!d || this.exporting()) return;
+    this.exporting.set(true);
+    try {
+      const status = this.filter() === 'all' ? null : this.filter();
+      const blob = await this.reconciliationService.export(d.reconciliationId, this.side(), status);
+      const parts = [this.t(`reconciliation.side.${this.side()}`), status ? this.t(`reconciliation.filter.${status}`) : null].filter(Boolean).join(' - ');
+      saveBlob(blob, `Conciliación ${d.bankAccount.department ? d.bankAccount.department + ' ' : ''}${d.bankAccount.name} ${d.periodStart.slice(0, 7)} ${parts}.xlsx`);
+    } catch (error) {
+      this.toastService.show(this.t('reconciliation.exportError'), apiErrorMessage(error) ?? undefined);
+    } finally {
+      this.exporting.set(false);
     }
   }
 
