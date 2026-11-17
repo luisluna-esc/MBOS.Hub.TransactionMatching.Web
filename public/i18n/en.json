@@ -1,0 +1,426 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "logout": "Sign out",
+    "saved": "Saved successfully.",
+    "deleted": "Deleted successfully.",
+    "saveError": "It could not be saved.",
+    "loadError": "The information could not be loaded.",
+    "retry": "Retry"
+  },
+  "dialog": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "save": "Save"
+  },
+  "filters": {
+    "clear": "Clear"
+  },
+  "language": {
+    "select": "Language"
+  },
+  "table": {
+    "actions": "Options",
+    "empty": "No data to display.",
+    "next": "Next",
+    "pageInfo": "Page {{page}} of {{total}}",
+    "pageSize": "Per page:",
+    "previous": "Previous"
+  },
+  "styleGuide": {
+    "title": "Style guide",
+    "howTo": {
+      "title": "Colors are changed in a single place",
+      "description": "TransactionMatching uses the same colors as InvenTrack, in light and dark mode. They are all in the file below: change a value there and the whole app updates."
+    },
+    "brandScale": "Brand scale",
+    "semanticTokens": "Colors by purpose",
+    "semanticHint": "Components only use these names, never a fixed color.",
+    "statusColors": "Status colors",
+    "statusHint": "For difference statuses and errors. They stay the same with any brand color.",
+    "usage": {
+      "background": "Screen background",
+      "surface": "Cards, menu and dialogs",
+      "foreground": "Main text",
+      "mutedForeground": "Secondary text",
+      "border": "Borders and lines",
+      "primary": "Main button and highlights",
+      "primaryForeground": "Text on the main color"
+    },
+    "status": {
+      "success": "No difference / Resolved",
+      "warning": "Pending",
+      "info": "Justified",
+      "danger": "Money missing",
+      "neutral": "Not submitted"
+    },
+    "buttons": "Buttons",
+    "primaryButton": "Save count",
+    "dangerButton": "Close period",
+    "disabledButton": "Disabled",
+    "withTooltip": "With help",
+    "tooltipText": "Help text",
+    "hintTitle": "What is the ACMS balance?",
+    "hintBody": "It is the local fund balance at month close, as shown in ACMS.",
+    "form": "Form",
+    "table": "Table",
+    "fields": {
+      "church": "Church",
+      "cash": "Cash (Bs)",
+      "type": "Type",
+      "countDate": "Count date",
+      "signedByPastor": "Signed by the pastor",
+      "submitted": "Count submitted"
+    }
+  },
+  "login": {
+    "title": "Sign in",
+    "welcomeTitle": "Welcome back",
+    "welcomeDescription": "Match the bank statement against the ASSINET ledger in minutes, simply and securely.",
+    "password": "Password",
+    "submit": "Sign in",
+    "error": "Wrong username or password.",
+    "username": "Username"
+  },
+  "layout": {
+    "collapseMenu": "Collapse menu",
+    "expandMenu": "Expand menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "nav": {
+    "home": "Home",
+    "admin": "Administration",
+    "users": "Users",
+    "roles": "Roles",
+    "auditLogs": "Audit log",
+    "newReconciliation": "New reconciliation",
+    "reconciliations": "Reconciliations",
+    "bankAccounts": "Bank accounts",
+    "reconciliation": "Reconciliation",
+    "catalogs": "Catalogs"
+  },
+  "placeholder": {
+    "description": "This screen is still under construction.",
+    "comingSoon": "Coming soon"
+  },
+  "months": {
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
+  "catalogs": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "deleteMessage": "Delete \"{{name}}\"? This cannot be undone.",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "filters": {
+      "search": "Search by name",
+      "status": "Status"
+    },
+    "columns": {
+      "name": "Name",
+      "status": "Status",
+      "fullName": "Full name",
+      "ci": "ID number",
+      "email": "Email",
+      "phone": "Phone",
+      "code": "Code",
+      "type": "Type"
+    }
+  },
+  "admin": {
+    "columns": {
+      "roles": "Roles",
+      "lastLogin": "Last login",
+      "description": "Description",
+      "users": "Users",
+      "menus": "Menus",
+      "user": "User",
+      "table": "Section",
+      "action": "Action",
+      "date": "Date",
+      "changes": "Changed fields",
+      "time": "Time",
+      "record": "Record"
+    },
+    "users": {
+      "new": "New user",
+      "newTitle": "New user",
+      "editTitle": "Edit user",
+      "deleteTitle": "Delete user",
+      "deleteMessage": "Delete \"{{name}}\"? If they already recorded data it cannot be deleted: deactivate them instead.",
+      "cannotDeleteSelf": "You cannot delete your own user.",
+      "search": "Search by name, username or ID",
+      "roles": "Roles",
+      "rolesTitle": "Roles of {{name}}",
+      "noRoles": "No roles",
+      "never": "Never",
+      "newPassword": "New password",
+      "newPasswordHint": "Leave it empty to keep it. If filled, the account is also unlocked.",
+      "states": {
+        "active": "Active",
+        "locked": "Locked",
+        "inactive": "Inactive"
+      },
+      "username": "Username",
+      "usernameHint": "Used to sign in. It is built from the name; you can edit it.",
+      "usernameInvalid": "It must be name.surname: lowercase letters without accents, one dot and, if needed, a number at the end.",
+      "password": "Password",
+      "passwordHint": "At least 8 characters."
+    },
+    "roles": {
+      "subtitle": "What each role can do is fixed in the system. Here you choose which menus it sees.",
+      "new": "New role",
+      "newTitle": "New role",
+      "editTitle": "Edit role",
+      "deleteTitle": "Delete role",
+      "deleteWithUsers": "\"{{name}}\" has {{count}} user(s): they lose this role if it is deleted. Continue?",
+      "protected": "The M-BOS role cannot be renamed, deactivated or deleted.",
+      "newRoleHint": "A new role can only view: recording data is limited to M-BOS and Analista.",
+      "menus": "Menus",
+      "menusTitle": "Menus of {{name}}",
+      "protectedMenus": "The M-BOS role always sees every menu.",
+      "deleteMessage": "Delete the role \"{{name}}\"? Users who have it will lose it. This cannot be undone."
+    },
+    "audit": {
+      "subtitle": "Who created, edited or deleted each record, the day and the time. Kept for 3 years.",
+      "system": "System",
+      "detail": "View detail",
+      "detailTitle": "Audit record #{{id}}",
+      "field": "Field",
+      "before": "Before",
+      "after": "After",
+      "noChanges": "No value changes.",
+      "maskedHint": "Passwords and tokens are stored hidden (***).",
+      "actions": {
+        "INSERT": "Created",
+        "UPDATE": "Edited",
+        "DELETE": "Deleted"
+      },
+      "tables": {
+        "app_user": "Users",
+        "app_user_role": "User roles",
+        "role": "Roles",
+        "menu": "Menus",
+        "menu_role": "Role menus",
+        "bank_account": "Bank accounts",
+        "reconciliation": "Reconciliations",
+        "reconciliation_match": "Matches"
+      },
+      "fieldCount": "{{count}} fields"
+    }
+  },
+  "errorState": {
+    "400": {
+      "title": "Invalid request",
+      "description": "The request could not be processed. Check the data and try again."
+    },
+    "401": {
+      "title": "Unauthorized",
+      "description": "You need to sign in to access this content."
+    },
+    "403": {
+      "title": "Access denied",
+      "description": "You don't have permission to view this section."
+    },
+    "404": {
+      "title": "Page not found",
+      "description": "The content you're looking for doesn't exist or was moved."
+    },
+    "500": {
+      "title": "Server error",
+      "description": "Something unexpected happened. Please try again later."
+    },
+    "503": {
+      "title": "Service unavailable",
+      "description": "The service isn't available right now. Please try again later."
+    },
+    "default": {
+      "title": "An error occurred",
+      "description": "Something went wrong. Please try again."
+    }
+  },
+  "reports": {
+    "downloading": "Downloading..."
+  },
+  "charts": {
+    "showTable": "Show table",
+    "showChart": "Show chart",
+    "report": "Report",
+    "reportError": "The chart report could not be generated.",
+    "reportFormats": {
+      "pdf": "PDF (chart and table)",
+      "excel": "Excel",
+      "txt": "TXT"
+    }
+  },
+  "shortcuts": {
+    "keySpace": "Space",
+    "filterEnter": "In filters: search right away",
+    "switchToggle": "Switch (Yes / No): toggle it",
+    "dateOpen": "Date: open the calendar (move with arrows)",
+    "dateMonth": "Open calendar: previous or next month",
+    "dateDay": "Date: one day more or less",
+    "dateToday": "Date: today",
+    "dateType": "Date: type it (13102026, 13/10/26 or 13/10)",
+    "selectPick": "Open list: choose (Tab also moves to the next field)",
+    "selectMove": "Open list: move between options",
+    "selectType": "Option list: type the first letters to choose",
+    "selectOpen": "Option list: open it",
+    "prevField": "Go back to the previous field",
+    "nextField": "Go to the next field",
+    "groupFields": "Fields and filters",
+    "or": "or",
+    "title": "Keyboard shortcuts",
+    "onMac": "Mac keys",
+    "onWindows": "Windows keys",
+    "then": "then",
+    "footer": "Letter shortcuts do not work while typing in a field; Save, Esc and Ctrl/⌘ shortcuts do.",
+    "groupGeneral": "General",
+    "groupForms": "Forms",
+    "groupLists": "Lists",
+    "groupGoTo": "Go to",
+    "palette": "Search a screen and go to it",
+    "help": "Show this shortcut list",
+    "sidebar": "Show or hide the side menu",
+    "cancel": "Close the open window",
+    "save": "Save",
+    "search": "Go to the list search box",
+    "goHome": "Home",
+    "paletteSearch": "Type the name of a screen...",
+    "paletteEmpty": "No screens with that name.",
+    "paletteHint": "↑ ↓ to choose, Enter to open, Esc to close",
+    "goNewReconciliation": "New reconciliation",
+    "goReconciliations": "Reconciliations"
+  },
+  "reconciliation": {
+    "bank": "Bank",
+    "ledger": "ASSINET",
+    "amount": "Amount",
+    "note": "Note",
+    "notes": "Notes",
+    "closedHint": "The reconciliation is closed.",
+    "exportError": "Could not download the Excel file.",
+    "deleteTitle": "Delete reconciliation",
+    "deleteMessage": "Delete the {{account}} reconciliation for {{period}}? The uploaded files and the matching are removed.",
+    "scoreHint": "How well the date and the name match (the amount is already equal).",
+    "searchPlaceholder": "Search name, amount or voucher...",
+    "confirmed": "Match confirmed.",
+    "unmatched": "Match undone.",
+    "rematched": "Matching updated.",
+    "closed": "Reconciliation closed.",
+    "reopened": "Reconciliation reopened.",
+    "confirmAllTitle": "Confirm all",
+    "confirmAllMessage": "Confirm the {{count}} matches to review? Check them first if you are not sure.",
+    "rematchTitle": "Match again",
+    "rematchMessage": "What the system proposed is matched again. What you confirmed or matched by hand is kept.",
+    "closeTitle": "Close reconciliation",
+    "closeMessage": "Once closed it cannot be matched or annotated (it can be reopened).",
+    "status": {
+      "Open": "Open",
+      "Closed": "Closed"
+    },
+    "side": {
+      "Income": "Income",
+      "Expense": "Expenses"
+    },
+    "lineStatus": {
+      "Auto": "Matched",
+      "Confirmed": "Reviewed",
+      "Manual": "By hand",
+      "Suggested": "To review",
+      "MissingInLedger": "Missing in ASSINET",
+      "MissingInBank": "Missing in bank"
+    },
+    "filter": {
+      "all": "All",
+      "Suggested": "To review",
+      "MissingInLedger": "Missing in ASSINET",
+      "MissingInBank": "Missing in bank",
+      "matched": "Matched"
+    },
+    "actions": {
+      "open": "Open",
+      "export": "Download Excel",
+      "confirm": "Confirm",
+      "confirmAll": "Confirm all",
+      "unmatch": "Undo",
+      "match": "Match",
+      "rematch": "Match again",
+      "close": "Close reconciliation",
+      "reopen": "Reopen"
+    },
+    "balances": {
+      "ledger": "ASSINET balance",
+      "bank": "Bank balance",
+      "reconciled": "Reconciled balance",
+      "reconciledHint": "ASSINET balance plus what is missing in ASSINET, minus what is recorded but not in the bank.",
+      "unexplained": "Unexplained difference"
+    },
+    "columns": {
+      "account": "Account",
+      "period": "Period",
+      "matched": "Matched",
+      "toReview": "To review",
+      "missingInLedger": "Missing in ASSINET",
+      "missingInBank": "Missing in bank",
+      "createdBy": "Uploaded by",
+      "department": "Department"
+    },
+    "list": {
+      "subtitle": "One reconciliation per account and month: the bank statement matched against the ASSINET ledger.",
+      "searchAccount": "Search account",
+      "year": "Year"
+    },
+    "new": {
+      "subtitle": "Upload the bank statement and the ASSINET ledger as you download them. The system matches them by amount, date and name.",
+      "bankTitle": "Bank statement",
+      "bankHint": "BMSC or Banco Unión Excel, or the BNB PDF, as downloaded",
+      "ledgerTitle": "ASSINET ledger",
+      "ledgerHint": "Ledger of the bank sub-account (.xlsx)",
+      "drop": "Drag the file here or click to choose it",
+      "change": "click to change it",
+      "howTitle": "What the system does",
+      "how1": "Checks that both files belong to the same account and month.",
+      "how2": "Matches each movement by equal amount, close date and similar name (even with typos).",
+      "how3": "Doubtful ones are left \"To review\" and unmatched ones as \"Missing in ASSINET\" or \"Missing in bank\".",
+      "upload": "Match",
+      "uploading": "Matching...",
+      "done": "Reconciliation ready.",
+      "error": "The reconciliation could not be created.",
+      "readOnly": "Your role can only view reconciliations.",
+      "remove": "Remove file"
+    },
+    "match": {
+      "title": "Match by hand",
+      "save": "Match",
+      "search": "Search",
+      "empty": "No unmatched rows on the other side.",
+      "gap": "difference {{gap}}",
+      "done": "Matched."
+    },
+    "accounts": {
+      "subtitle": "Created automatically when the first statement of each account is uploaded.",
+      "bank": "Bank",
+      "number": "Account no.",
+      "subaccount": "ASSINET sub-account",
+      "editTitle": "Edit account"
+    },
+    "deleteNote": "Delete note",
+    "noteDeleted": "Note deleted."
+  }
+}

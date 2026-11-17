@@ -1,0 +1,426 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión",
+    "saved": "Guardado correctamente.",
+    "deleted": "Eliminado correctamente.",
+    "saveError": "No se pudo guardar.",
+    "loadError": "No se pudo cargar la información.",
+    "retry": "Reintentar"
+  },
+  "dialog": {
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "save": "Guardar"
+  },
+  "filters": {
+    "clear": "Limpiar"
+  },
+  "language": {
+    "select": "Idioma"
+  },
+  "table": {
+    "actions": "Opciones",
+    "empty": "No hay datos para mostrar.",
+    "next": "Siguiente",
+    "pageInfo": "Página {{page}} de {{total}}",
+    "pageSize": "Por página:",
+    "previous": "Anterior"
+  },
+  "styleGuide": {
+    "title": "Guía de estilo",
+    "howTo": {
+      "title": "Los colores se cambian en un solo lugar",
+      "description": "TransactionMatching usa los mismos colores de InvenTrack, en modo claro y oscuro. Todos están en el archivo de abajo: cambia un valor ahí y se actualiza toda la aplicación."
+    },
+    "brandScale": "Escala de marca",
+    "semanticTokens": "Colores por función",
+    "semanticHint": "Los componentes usan solo estos nombres, nunca un color fijo.",
+    "statusColors": "Colores de estado",
+    "statusHint": "Para el estado de las diferencias y los errores. Son iguales con cualquier color de marca.",
+    "usage": {
+      "background": "Fondo de la pantalla",
+      "surface": "Tarjetas, menú y diálogos",
+      "foreground": "Texto principal",
+      "mutedForeground": "Texto secundario",
+      "border": "Bordes y líneas",
+      "primary": "Botón principal y destacados",
+      "primaryForeground": "Texto sobre el color principal"
+    },
+    "status": {
+      "success": "Sin diferencia / Resuelta",
+      "warning": "Pendiente",
+      "info": "Justificada",
+      "danger": "Falta dinero",
+      "neutral": "No presentó"
+    },
+    "buttons": "Botones",
+    "primaryButton": "Guardar arqueo",
+    "dangerButton": "Cerrar período",
+    "disabledButton": "Deshabilitado",
+    "withTooltip": "Con ayuda",
+    "tooltipText": "Texto de ayuda",
+    "hintTitle": "¿Qué es el saldo ACMS?",
+    "hintBody": "Es el saldo del fondo local al cierre del mes, tal como figura en el ACMS.",
+    "form": "Formulario",
+    "table": "Tabla",
+    "fields": {
+      "church": "Iglesia",
+      "cash": "Efectivo (Bs)",
+      "type": "Tipo",
+      "countDate": "Fecha del arqueo",
+      "signedByPastor": "Firmado por el pastor",
+      "submitted": "Presentó arqueo"
+    }
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "welcomeTitle": "Bienvenido de nuevo",
+    "welcomeDescription": "Coteja el extracto del banco con el Mayor de ASSINET en minutos, de forma simple y segura.",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "error": "Usuario o contraseña incorrectos.",
+    "username": "Usuario"
+  },
+  "layout": {
+    "collapseMenu": "Contraer menú",
+    "expandMenu": "Expandir menú",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "nav": {
+    "home": "Inicio",
+    "admin": "Administración",
+    "users": "Usuarios",
+    "roles": "Roles",
+    "auditLogs": "Auditoría",
+    "newReconciliation": "Nueva conciliación",
+    "reconciliations": "Conciliaciones",
+    "bankAccounts": "Cuentas bancarias",
+    "reconciliation": "Conciliación",
+    "catalogs": "Catálogos"
+  },
+  "placeholder": {
+    "description": "Esta pantalla todavía está en construcción.",
+    "comingSoon": "Próximamente"
+  },
+  "months": {
+    "1": "Enero",
+    "2": "Febrero",
+    "3": "Marzo",
+    "4": "Abril",
+    "5": "Mayo",
+    "6": "Junio",
+    "7": "Julio",
+    "8": "Agosto",
+    "9": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre"
+  },
+  "catalogs": {
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "deleteMessage": "¿Eliminar «{{name}}»? Esta acción no se puede deshacer.",
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "filters": {
+      "search": "Buscar por nombre",
+      "status": "Estado"
+    },
+    "columns": {
+      "name": "Nombre",
+      "status": "Estado",
+      "fullName": "Nombre completo",
+      "ci": "CI",
+      "email": "Correo",
+      "phone": "Teléfono",
+      "code": "Código",
+      "type": "Tipo"
+    }
+  },
+  "admin": {
+    "columns": {
+      "roles": "Roles",
+      "lastLogin": "Último ingreso",
+      "description": "Descripción",
+      "users": "Usuarios",
+      "menus": "Menús",
+      "user": "Usuario",
+      "table": "Sección",
+      "action": "Acción",
+      "date": "Fecha",
+      "changes": "Campos cambiados",
+      "time": "Hora",
+      "record": "Registro"
+    },
+    "users": {
+      "new": "Nuevo usuario",
+      "newTitle": "Nuevo usuario",
+      "editTitle": "Editar usuario",
+      "deleteTitle": "Eliminar usuario",
+      "deleteMessage": "¿Eliminar a «{{name}}»? Si ya registró datos no se podrá eliminar: en ese caso desactívalo.",
+      "cannotDeleteSelf": "No puedes eliminar tu propio usuario.",
+      "search": "Buscar por nombre, usuario o CI",
+      "roles": "Roles",
+      "rolesTitle": "Roles de {{name}}",
+      "noRoles": "Sin roles",
+      "never": "Nunca",
+      "newPassword": "Nueva contraseña",
+      "newPasswordHint": "Déjala vacía para no cambiarla. Si la llenas, también se desbloquea la cuenta.",
+      "states": {
+        "active": "Activo",
+        "locked": "Bloqueado",
+        "inactive": "Inactivo"
+      },
+      "username": "Usuario",
+      "usernameHint": "Con esto entra al sistema. Se arma solo con el nombre; puedes corregirlo.",
+      "usernameInvalid": "Debe ser nombre.apellido: letras minúsculas sin tildes, un punto y, si hace falta, un número al final.",
+      "password": "Contraseña",
+      "passwordHint": "Mínimo 8 caracteres."
+    },
+    "roles": {
+      "subtitle": "Qué puede hacer cada rol está fijo en el sistema. Aquí se elige qué menús ve.",
+      "new": "Nuevo rol",
+      "newTitle": "Nuevo rol",
+      "editTitle": "Editar rol",
+      "deleteTitle": "Eliminar rol",
+      "deleteWithUsers": "«{{name}}» tiene {{count}} usuario(s): al eliminarlo pierden este rol. ¿Continuar?",
+      "protected": "El rol M-BOS no se puede renombrar, desactivar ni eliminar.",
+      "newRoleHint": "Un rol nuevo solo consulta: registrar datos queda para M-BOS y Analista.",
+      "menus": "Menús",
+      "menusTitle": "Menús de {{name}}",
+      "protectedMenus": "El rol M-BOS ve siempre todos los menús.",
+      "deleteMessage": "¿Eliminar el rol «{{name}}»? Los usuarios que lo tengan lo pierden. Esta acción no se puede deshacer."
+    },
+    "audit": {
+      "subtitle": "Quién creó, editó o eliminó cada dato, el día y la hora. Se conserva 3 años.",
+      "system": "Sistema",
+      "detail": "Ver detalle",
+      "detailTitle": "Registro de auditoría #{{id}}",
+      "field": "Campo",
+      "before": "Antes",
+      "after": "Después",
+      "noChanges": "Sin cambios de valores.",
+      "maskedHint": "Las contraseñas y tokens se guardan ocultos (***).",
+      "actions": {
+        "INSERT": "Creó",
+        "UPDATE": "Editó",
+        "DELETE": "Eliminó"
+      },
+      "tables": {
+        "app_user": "Usuarios",
+        "app_user_role": "Roles de usuario",
+        "role": "Roles",
+        "menu": "Menús",
+        "menu_role": "Menús de rol",
+        "bank_account": "Cuentas bancarias",
+        "reconciliation": "Conciliaciones",
+        "reconciliation_match": "Cotejos"
+      },
+      "fieldCount": "{{count}} campos"
+    }
+  },
+  "errorState": {
+    "400": {
+      "title": "Solicitud inválida",
+      "description": "La solicitud no pudo ser procesada. Verifica los datos e inténtalo de nuevo."
+    },
+    "401": {
+      "title": "No autorizado",
+      "description": "Debes iniciar sesión para acceder a este contenido."
+    },
+    "403": {
+      "title": "Acceso denegado",
+      "description": "No tienes permisos para ver esta sección."
+    },
+    "404": {
+      "title": "Página no encontrada",
+      "description": "El contenido que buscas no existe o fue movido."
+    },
+    "500": {
+      "title": "Error del servidor",
+      "description": "Ocurrió un problema inesperado. Inténtalo más tarde."
+    },
+    "503": {
+      "title": "Servicio no disponible",
+      "description": "El servicio no está disponible en este momento. Inténtalo más tarde."
+    },
+    "default": {
+      "title": "Ocurrió un error",
+      "description": "Algo salió mal. Inténtalo de nuevo."
+    }
+  },
+  "reports": {
+    "downloading": "Descargando..."
+  },
+  "charts": {
+    "showTable": "Ver tabla",
+    "showChart": "Ver gráfica",
+    "report": "Reporte",
+    "reportError": "No se pudo generar el reporte de la gráfica.",
+    "reportFormats": {
+      "pdf": "PDF (gráfica y tabla)",
+      "excel": "Excel",
+      "txt": "TXT"
+    }
+  },
+  "shortcuts": {
+    "keySpace": "Espacio",
+    "filterEnter": "En los filtros: buscar al instante",
+    "switchToggle": "Interruptor (Sí / No): cambiarlo",
+    "dateOpen": "Fecha: abrir el calendario (se recorre con flechas)",
+    "dateMonth": "Calendario abierto: mes anterior o siguiente",
+    "dateDay": "Fecha: un día más o menos",
+    "dateToday": "Fecha: hoy",
+    "dateType": "Fecha: escribirla (13102026, 13/10/26 o 13/10)",
+    "selectPick": "Lista abierta: elegir (con Tab, además pasa al siguiente campo)",
+    "selectMove": "Lista abierta: moverse entre opciones",
+    "selectType": "Lista de opciones: escribir las primeras letras para elegir",
+    "selectOpen": "Lista de opciones: abrirla",
+    "prevField": "Volver al campo anterior",
+    "nextField": "Pasar al siguiente campo",
+    "groupFields": "Campos y filtros",
+    "or": "o",
+    "title": "Atajos de teclado",
+    "onMac": "Teclas de Mac",
+    "onWindows": "Teclas de Windows",
+    "then": "y luego",
+    "footer": "Los atajos de letras no funcionan mientras escribes en un campo; Guardar, Esc y los de Ctrl/⌘ sí.",
+    "groupGeneral": "General",
+    "groupForms": "Formularios",
+    "groupLists": "Listas",
+    "groupGoTo": "Ir a",
+    "palette": "Buscar una pantalla e ir a ella",
+    "help": "Ver esta lista de atajos",
+    "sidebar": "Mostrar u ocultar el menú lateral",
+    "cancel": "Cerrar la ventana abierta",
+    "save": "Guardar",
+    "search": "Ir al buscador de la lista",
+    "goHome": "Inicio",
+    "paletteSearch": "Escribe el nombre de una pantalla...",
+    "paletteEmpty": "No hay pantallas con ese nombre.",
+    "paletteHint": "↑ ↓ para elegir, Enter para abrir, Esc para cerrar",
+    "goNewReconciliation": "Nueva conciliación",
+    "goReconciliations": "Conciliaciones"
+  },
+  "reconciliation": {
+    "bank": "Banco",
+    "ledger": "ASSINET",
+    "amount": "Importe",
+    "note": "Observación",
+    "notes": "Observaciones",
+    "closedHint": "La conciliación está cerrada.",
+    "exportError": "No se pudo descargar el Excel.",
+    "deleteTitle": "Eliminar conciliación",
+    "deleteMessage": "¿Eliminar la conciliación de {{account}} de {{period}}? Se borran los archivos cargados y el cotejo.",
+    "scoreHint": "Qué tanto coinciden la fecha y el nombre (el importe ya es igual).",
+    "searchPlaceholder": "Buscar nombre, importe o comprobante...",
+    "confirmed": "Cotejo confirmado.",
+    "unmatched": "Cotejo deshecho.",
+    "rematched": "Cotejo actualizado.",
+    "closed": "Conciliación cerrada.",
+    "reopened": "Conciliación abierta de nuevo.",
+    "confirmAllTitle": "Confirmar todos",
+    "confirmAllMessage": "¿Confirmar los {{count}} cotejos por revisar? Revísalos antes si no estás seguro.",
+    "rematchTitle": "Volver a cotejar",
+    "rematchMessage": "Se vuelve a cotejar lo que propuso el sistema. Lo que confirmaste o emparejaste a mano se mantiene.",
+    "closeTitle": "Cerrar conciliación",
+    "closeMessage": "Cerrada ya no se puede cotejar ni anotar (se puede volver a abrir).",
+    "status": {
+      "Open": "Abierta",
+      "Closed": "Cerrada"
+    },
+    "side": {
+      "Income": "Ingresos",
+      "Expense": "Egresos"
+    },
+    "lineStatus": {
+      "Auto": "Cotejado",
+      "Confirmed": "Revisado",
+      "Manual": "A mano",
+      "Suggested": "Por revisar",
+      "MissingInLedger": "Falta en ASSINET",
+      "MissingInBank": "Falta en banco"
+    },
+    "filter": {
+      "all": "Todos",
+      "Suggested": "Por revisar",
+      "MissingInLedger": "Falta en ASSINET",
+      "MissingInBank": "Falta en banco",
+      "matched": "Cotejados"
+    },
+    "actions": {
+      "open": "Abrir",
+      "export": "Descargar Excel",
+      "confirm": "Confirmar",
+      "confirmAll": "Confirmar todos",
+      "unmatch": "Deshacer",
+      "match": "Emparejar",
+      "rematch": "Volver a cotejar",
+      "close": "Cerrar conciliación",
+      "reopen": "Abrir de nuevo"
+    },
+    "balances": {
+      "ledger": "Saldo ASSINET",
+      "bank": "Saldo banco",
+      "reconciled": "Saldo conciliado",
+      "reconciledHint": "Saldo de ASSINET más lo que falta registrar en ASSINET, menos lo registrado que no está en el banco.",
+      "unexplained": "Diferencia sin explicar"
+    },
+    "columns": {
+      "account": "Cuenta",
+      "period": "Período",
+      "matched": "Cotejados",
+      "toReview": "Por revisar",
+      "missingInLedger": "Falta en ASSINET",
+      "missingInBank": "Falta en banco",
+      "createdBy": "Subida por",
+      "department": "Departamento"
+    },
+    "list": {
+      "subtitle": "Una conciliación por cuenta y mes: el extracto del banco cotejado con el Mayor de ASSINET.",
+      "searchAccount": "Buscar cuenta",
+      "year": "Año"
+    },
+    "new": {
+      "subtitle": "Sube el extracto del banco y el Mayor de ASSINET tal como los descargas. El sistema los coteja por importe, fecha y nombre.",
+      "bankTitle": "Extracto del banco",
+      "bankHint": "Excel del BMSC o de Banco Unión, o el PDF del BNB, tal como lo descargas",
+      "ledgerTitle": "Mayor de ASSINET",
+      "ledgerHint": "Libro Mayor de la subcuenta del banco (.xlsx)",
+      "drop": "Arrastra el archivo aquí o haz clic para elegirlo",
+      "change": "clic para cambiarlo",
+      "howTitle": "Qué hace el sistema",
+      "how1": "Revisa que los dos archivos sean de la misma cuenta y del mismo mes.",
+      "how2": "Coteja cada movimiento por importe igual, fecha cercana y nombre parecido (aunque tenga errores de escritura).",
+      "how3": "Lo dudoso queda \"Por revisar\" y lo que no tiene pareja queda como \"Falta en ASSINET\" o \"Falta en banco\".",
+      "upload": "Cotejar",
+      "uploading": "Cotejando...",
+      "done": "Conciliación lista.",
+      "error": "No se pudo crear la conciliación.",
+      "readOnly": "Tu rol solo puede consultar conciliaciones.",
+      "remove": "Quitar archivo"
+    },
+    "match": {
+      "title": "Emparejar a mano",
+      "save": "Emparejar",
+      "search": "Buscar",
+      "empty": "No hay filas sin pareja del otro lado.",
+      "gap": "diferencia {{gap}}",
+      "done": "Cotejado."
+    },
+    "accounts": {
+      "subtitle": "Se crean solas al subir el primer extracto de cada cuenta.",
+      "bank": "Banco",
+      "number": "Nº de cuenta",
+      "subaccount": "Subcuenta ASSINET",
+      "editTitle": "Editar cuenta"
+    },
+    "deleteNote": "Borrar observación",
+    "noteDeleted": "Observación borrada."
+  }
+}

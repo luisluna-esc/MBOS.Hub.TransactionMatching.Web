@@ -1,0 +1,86 @@
+<div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-0.5">
+    <h1 class="text-xl font-semibold text-foreground">{{ 'nav.newReconciliation' | translate }}</h1>
+    <p class="text-sm text-muted-foreground">{{ 'reconciliation.new.subtitle' | translate }}</p>
+  </div>
+
+  @if (authService.canWrite()) {
+    <div class="grid gap-4 md:grid-cols-2">
+      @for (kind of kinds; track kind; let index = $index) {
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-semibold text-foreground">{{ index + 1 }}. {{ 'reconciliation.new.' + kind + 'Title' | translate }}</span>
+          <label
+            class="relative flex min-h-40 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed px-6 py-8 text-center transition-colors"
+            [class]="
+              dragging() === kind
+                ? 'border-primary bg-primary/5'
+                : files[kind]()
+                  ? 'border-success bg-success/5'
+                  : 'border-border bg-surface hover:border-primary'
+            "
+            (dragover)="$event.preventDefault(); dragging.set(kind)"
+            (dragleave)="dragging.set(null)"
+            (drop)="drop(kind, $event)"
+          >
+            <input type="file" class="sr-only" [accept]="kind === 'bank' ? '.xls,.xlsx,.pdf' : '.xls,.xlsx'" (change)="pick(kind, $event)" />
+            @if (files[kind](); as selected) {
+              <button
+                type="button"
+                class="absolute top-2 right-2 flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-danger/10 hover:text-danger disabled:opacity-50"
+                [attr.aria-label]="'reconciliation.new.remove' | translate"
+                [title]="'reconciliation.new.remove' | translate"
+                [disabled]="uploading()"
+                (click)="remove(kind, $event)"
+              >
+                ✕
+              </button>
+              <span class="text-sm font-semibold break-all text-foreground">{{ selected.name }}</span>
+              <span class="text-xs text-muted-foreground">{{ size(selected) }} · {{ 'reconciliation.new.change' | translate }}</span>
+            } @else {
+              <span class="text-sm font-semibold text-foreground">{{ 'reconciliation.new.drop' | translate }}</span>
+              <span class="text-xs text-muted-foreground">{{ 'reconciliation.new.' + kind + 'Hint' | translate }}</span>
+            }
+          </label>
+        </div>
+      }
+    </div>
+
+    <div class="flex flex-col gap-3 rounded-lg border border-border bg-surface p-4 text-sm text-foreground">
+      <p class="font-semibold">{{ 'reconciliation.new.howTitle' | translate }}</p>
+      <ul class="flex list-disc flex-col gap-1 pl-5 text-muted-foreground">
+        <li>{{ 'reconciliation.new.how1' | translate }}</li>
+        <li>{{ 'reconciliation.new.how2' | translate }}</li>
+        <li>{{ 'reconciliation.new.how3' | translate }}</li>
+      </ul>
+    </div>
+
+    <div class="flex flex-wrap justify-end gap-2">
+      <button
+        type="button"
+        class="rounded-full border border-border px-5 py-2 text-sm font-medium text-foreground hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="uploading()"
+        (click)="cancel()"
+      >
+        {{ 'dialog.cancel' | translate }}
+      </button>
+      <button
+        type="button"
+        class="rounded-full border border-border px-5 py-2 text-sm font-medium text-foreground hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="uploading() || (!files.bank() && !files.ledger())"
+        (click)="clear()"
+      >
+        {{ 'filters.clear' | translate }}
+      </button>
+      <button
+        type="button"
+        class="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+        [disabled]="!files.bank() || !files.ledger() || uploading()"
+        (click)="upload()"
+      >
+        {{ (uploading() ? 'reconciliation.new.uploading' : 'reconciliation.new.upload') | translate }}
+      </button>
+    </div>
+  } @else {
+    <p class="text-sm text-muted-foreground">{{ 'reconciliation.new.readOnly' | translate }}</p>
+  }
+</div>
