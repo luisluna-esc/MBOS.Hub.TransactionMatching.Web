@@ -318,7 +318,7 @@
     "deleteTitle": "Excluir conciliação",
     "deleteMessage": "Excluir a conciliação de {{account}} de {{period}}? Os arquivos carregados e o confronto são apagados.",
     "scoreHint": "O quanto a data e o nome coincidem (o valor já é igual).",
-    "searchPlaceholder": "Buscar nome, valor ou comprovante...",
+    "searchPlaceholder": "Buscar nome, valor ou comprovante (MB53)...",
     "confirmed": "Confronto confirmado.",
     "unmatched": "Confronto desfeito.",
     "rematched": "Confronto atualizado.",
@@ -449,6 +449,11 @@
       "description": "Excel com o que ficou sem confrontar em cada mês: depósitos não identificados (no banco, sem registro no ASSINET) e o registrado que não chegou ao banco.",
       "allAccounts": "Todas as contas",
       "download": "Baixar"
-    }
+    },
+    "voucher": "Comprovante",
+    "voucherTotal": "Total no ASSINET ({{count}} lançamentos)",
+    "voucherBank": "No banco ({{count}} movimentos)",
+    "voucherClear": "Ver todos os comprovantes",
+    "totalRows": "Total ({{count}} linhas)"
   }
 }

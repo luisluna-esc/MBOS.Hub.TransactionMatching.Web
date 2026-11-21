@@ -318,7 +318,7 @@
     "deleteTitle": "Delete reconciliation",
     "deleteMessage": "Delete the {{account}} reconciliation for {{period}}? The uploaded files and the matching are removed.",
     "scoreHint": "How well the date and the name match (the amount is already equal).",
-    "searchPlaceholder": "Search name, amount or voucher...",
+    "searchPlaceholder": "Search name, amount or voucher (MB53)...",
     "confirmed": "Match confirmed.",
     "unmatched": "Match undone.",
     "rematched": "Matching updated.",
@@ -449,6 +449,11 @@
       "description": "Excel with what was left unmatched each month: unidentified deposits (in the bank, not recorded in ASSINET) and recorded items that never reached the bank.",
       "allAccounts": "All accounts",
       "download": "Download"
-    }
+    },
+    "voucher": "Voucher",
+    "voucherTotal": "Total in ASSINET ({{count}} entries)",
+    "voucherBank": "In the bank ({{count}} movements)",
+    "voucherClear": "Show all vouchers",
+    "totalRows": "Total ({{count}} rows)"
   }
 }

@@ -70,6 +70,8 @@ export interface LedgerEntry {
   accountingDate: string;
   movementDate: string | null;
   batch: string | null;
+  /** Comprobante sacado del lote: "MB - 53 1.10" → "MB 53". */
+  voucher: string | null;
   description: string;
   amount: number;
   note: string | null;

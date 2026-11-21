@@ -318,7 +318,7 @@
     "deleteTitle": "Eliminar conciliación",
     "deleteMessage": "¿Eliminar la conciliación de {{account}} de {{period}}? Se borran los archivos cargados y el cotejo.",
     "scoreHint": "Qué tanto coinciden la fecha y el nombre (el importe ya es igual).",
-    "searchPlaceholder": "Buscar nombre, importe o comprobante...",
+    "searchPlaceholder": "Buscar nombre, importe o comprobante (MB53)...",
     "confirmed": "Cotejo confirmado.",
     "unmatched": "Cotejo deshecho.",
     "rematched": "Cotejo actualizado.",
@@ -449,6 +449,11 @@
       "description": "Excel con lo que quedó sin cotejar cada mes: los depósitos no identificados (en el banco, sin registro en ASSINET) y lo registrado que no llegó al banco.",
       "allAccounts": "Todas las cuentas",
       "download": "Descargar"
-    }
+    },
+    "voucher": "Comprobante",
+    "voucherTotal": "Total en ASSINET ({{count}} asientos)",
+    "voucherBank": "En el banco ({{count}} movimientos)",
+    "voucherClear": "Ver todos los comprobantes",
+    "totalRows": "Total ({{count}} filas)"
   }
 }

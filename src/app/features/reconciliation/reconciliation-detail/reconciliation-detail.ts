@@ -11,6 +11,7 @@ import { Badge } from '../../../shared/components/badge/badge';
 import { ConfirmDialog, ConfirmDialogData } from '../../../shared/components/confirm-dialog/confirm-dialog';
 import { ErrorState } from '../../../shared/components/error-state/error-state';
 import { Input as AppInput } from '../../../shared/components/input/input';
+import { Select, SelectOption } from '../../../shared/components/select/select';
 import { Skeleton } from '../../../shared/components/skeleton/skeleton';
 import { Tooltip } from '../../../shared/components/tooltip/tooltip';
 import { MoneyPipe } from '../../../shared/pipes/money.pipe';
@@ -29,7 +30,7 @@ type LineFilter = 'all' | 'Suggested' | 'MissingInLedger' | 'MissingInBank' | 'm
 // las propuestas, deshace las que están mal, empareja a mano lo que el sistema no pudo y anota.
 @Component({
   selector: 'app-reconciliation-detail',
-  imports: [FormsModule, RouterLink, AppInput, Badge, ErrorState, MoneyPipe, Skeleton, Tooltip, TranslatePipe],
+  imports: [FormsModule, RouterLink, AppInput, Select, Badge, ErrorState, MoneyPipe, Skeleton, Tooltip, TranslatePipe],
   templateUrl: './reconciliation-detail.html',
 })
 export class ReconciliationDetail {
@@ -50,6 +51,8 @@ export class ReconciliationDetail {
   protected readonly side = signal<Side>('Income');
   protected readonly filter = signal<LineFilter>('all');
   protected readonly query = signal('');
+  /** Comprobante de ASSINET elegido ("MB 53"): solo sus filas, con su total. */
+  protected readonly voucher = signal<string | null>(null);
 
   protected readonly dmy = dmy;
   protected readonly lineTone = LINE_STATUS_TONE;
@@ -82,18 +85,51 @@ export class ReconciliationDetail {
     return (['all', 'Suggested', 'MissingInLedger', 'MissingInBank', 'matched'] as LineFilter[]).map((key) => ({ key, count: count(key) }));
   });
 
+  /** Comprobantes de esta parte, ordenados (MB 4, MB 15, MB 53, MR 1...), con cuántas filas tiene cada uno. */
+  protected readonly voucherOptions = computed<SelectOption[]>(() => {
+    const counts = new Map<string, number>();
+    for (const l of this.sideLines()) {
+      if (l.ledger?.voucher) counts.set(l.ledger.voucher, (counts.get(l.ledger.voucher) ?? 0) + 1);
+    }
+    return [...counts.entries()]
+      .sort(([a], [b]) => {
+        const [ta, na] = a.split(' ');
+        const [tb, nb] = b.split(' ');
+        return ta.localeCompare(tb) || Number(na) - Number(nb);
+      })
+      .map(([value, count]) => ({ value, label: `${value} (${count})` }));
+  });
+
   protected readonly visibleLines = computed(() => {
     const q = normalize(this.query().trim());
+    const qCompact = q.replace(/[^a-z0-9]/g, '');
+    const voucher = this.voucher();
     return this.sideLines().filter(
       (l) =>
         this.matches(l, this.filter()) &&
+        (!voucher || l.ledger?.voucher === voucher) &&
         (!q ||
           normalize(
             [l.bank?.name, l.bank?.description, l.bank?.bankCode, l.bank?.amount, l.ledger?.description, l.ledger?.batch, l.ledger?.amount, l.bank?.note, l.ledger?.note]
               .filter((v) => v !== null && v !== undefined)
               .join(' ')
-          ).includes(q))
+          ).includes(q) ||
+          // "MB53", "mb 53" o "MB-53" encuentran el comprobante MB 53.
+          (!!qCompact && !!l.ledger?.voucher && normalize(l.ledger.voucher).replace(/[^a-z0-9]/g, '') === qCompact))
     );
+  });
+
+  /** Totales de lo que se ve (para sumar un comprobante, un estado o una búsqueda). */
+  protected readonly visibleTotals = computed(() => {
+    const lines = this.visibleLines();
+    const sum = (values: (number | undefined)[]) => Math.round(values.reduce<number>((a, v) => a + (v ?? 0), 0) * 100) / 100;
+    return {
+      count: lines.length,
+      bankCount: lines.filter((l) => l.bank).length,
+      ledgerCount: lines.filter((l) => l.ledger).length,
+      bank: sum(lines.map((l) => l.bank?.amount)),
+      ledger: sum(lines.map((l) => l.ledger?.amount)),
+    };
   });
 
   constructor() {
@@ -115,16 +151,23 @@ export class ReconciliationDetail {
     }
   }
 
-  protected readonly hasFilters = computed(() => this.filter() !== 'all' || this.query().trim() !== '');
+  protected readonly hasFilters = computed(() => this.filter() !== 'all' || this.query().trim() !== '' || this.voucher() !== null);
 
   protected clearFilters(): void {
     this.filter.set('all');
     this.query.set('');
+    this.voucher.set(null);
   }
 
   protected setSide(side: Side): void {
     this.side.set(side);
     this.filter.set('all');
+    this.voucher.set(null);
+  }
+
+  /** Clic en el comprobante de una fila: ver solo ese comprobante (otro clic lo quita). */
+  protected toggleVoucher(voucher: string | null): void {
+    this.voucher.set(this.voucher() === voucher ? null : voucher);
   }
 
   protected isMatched(line: ReconciliationLine): boolean {
@@ -226,8 +269,15 @@ export class ReconciliationDetail {
     this.exporting.set(true);
     try {
       const status = this.filter() === 'all' ? null : this.filter();
-      const blob = await this.reconciliationService.export(d.reconciliationId, this.side(), status);
-      const parts = [this.t(`reconciliation.side.${this.side()}`), status ? this.t(`reconciliation.filter.${status}`) : null].filter(Boolean).join(' - ');
+      const voucher = this.voucher();
+      const blob = await this.reconciliationService.export(d.reconciliationId, this.side(), status, voucher);
+      const parts = [
+        this.t(`reconciliation.side.${this.side()}`),
+        status ? this.t(`reconciliation.filter.${status}`) : null,
+        voucher ? `${this.t('reconciliation.voucher')} ${voucher}` : null,
+      ]
+        .filter(Boolean)
+        .join(' - ');
       saveBlob(blob, `Conciliación ${d.bankAccount.department ? d.bankAccount.department + ' ' : ''}${d.bankAccount.name} ${d.periodStart.slice(0, 7)} ${parts}.xlsx`);
     } catch (error) {
       this.toastService.show(this.t('reconciliation.exportError'), apiErrorMessage(error) ?? undefined);

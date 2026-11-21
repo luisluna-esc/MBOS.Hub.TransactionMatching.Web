@@ -37,8 +37,8 @@ export class ReconciliationService {
   close = (id: number) => this.api.post(`/reconciliations/${id}/close`);
   reopen = (id: number) => this.api.post(`/reconciliations/${id}/reopen`);
   /** Todo el Excel; con side y/o status, solo esas líneas ("exportar lo que veo"). */
-  export = (id: number, side?: Side | null, status?: string | null) =>
-    this.api.download(`/reconciliations/${id}/export`, { side, status });
+  export = (id: number, side?: Side | null, status?: string | null, voucher?: string | null) =>
+    this.api.download(`/reconciliations/${id}/export`, { side, status, voucher });
   /** Reporte anual por meses; sin cuenta, todas. */
   annualReport = (year: number, bankAccountId?: number | null) =>
     this.api.download('/reconciliations/annual-report', { year, bankAccountId });

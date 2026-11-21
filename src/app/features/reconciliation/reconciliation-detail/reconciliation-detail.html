@@ -177,6 +177,14 @@
         <div class="flex-1 sm:w-72">
           <app-input [placeholder]="'reconciliation.searchPlaceholder' | translate" [ngModel]="query()" (ngModelChange)="query.set($event)" />
         </div>
+        <div class="w-full sm:w-44">
+          <app-select
+            [placeholder]="'reconciliation.voucher' | translate"
+            [options]="voucherOptions()"
+            [ngModel]="voucher()"
+            (ngModelChange)="voucher.set($event)"
+          />
+        </div>
         <button
           type="button"
           class="rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-surface disabled:cursor-not-allowed disabled:opacity-50"
@@ -196,6 +204,30 @@
       </div>
     </div>
 
+    @if (voucher()) {
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-lg border-2 border-primary bg-primary/5 p-4">
+        <div class="flex flex-col">
+          <span class="text-xs text-muted-foreground">{{ 'reconciliation.voucher' | translate }}</span>
+          <span class="text-xl font-bold text-foreground">{{ voucher() }}</span>
+        </div>
+        <div class="flex flex-wrap gap-6">
+          <div class="flex flex-col items-end">
+            <span class="text-xs text-muted-foreground">{{ 'reconciliation.voucherTotal' | translate: { count: visibleTotals().ledgerCount } }}</span>
+            <span class="text-xl font-bold tabular-nums text-foreground">Bs {{ visibleTotals().ledger | money }}</span>
+          </div>
+          <div class="flex flex-col items-end">
+            <span class="text-xs text-muted-foreground">{{ 'reconciliation.voucherBank' | translate: { count: visibleTotals().bankCount } }}</span>
+            <span class="text-xl font-bold tabular-nums" [class]="visibleTotals().bank === visibleTotals().ledger ? 'text-success' : 'text-danger'">
+              Bs {{ visibleTotals().bank | money }}
+            </span>
+          </div>
+        </div>
+        <button type="button" class="rounded-md border border-border px-3 py-1.5 text-xs text-foreground hover:bg-surface" (click)="voucher.set(null)">
+          {{ 'reconciliation.voucherClear' | translate }}
+        </button>
+      </div>
+    }
+
     <!-- Tabla: banco | estado | ASSINET -->
     <div class="w-full overflow-x-auto rounded-md border border-border">
       <table class="w-full min-w-[960px] text-sm">
@@ -204,6 +236,7 @@
             <th class="px-3 py-2 text-left font-semibold">{{ 'reconciliation.bank' | translate }}</th>
             <th class="px-3 py-2 text-right font-semibold">{{ 'reconciliation.amount' | translate }}</th>
             <th class="px-3 py-2 text-center font-semibold">{{ 'catalogs.columns.status' | translate }}</th>
+            <th class="px-3 py-2 text-center font-semibold">{{ 'reconciliation.voucher' | translate }}</th>
             <th class="px-3 py-2 text-right font-semibold">{{ 'reconciliation.amount' | translate }}</th>
             <th class="px-3 py-2 text-left font-semibold">{{ 'reconciliation.ledger' | translate }}</th>
             @if (editable()) {
@@ -251,6 +284,22 @@
                 </div>
               </td>
 
+              <!-- Comprobante de ASSINET: un clic filtra por él -->
+              <td class="px-3 py-2 text-center align-top">
+                @if (line.ledger?.voucher; as v) {
+                  <app-tooltip [text]="line.ledger?.batch ?? ''">
+                    <button
+                      type="button"
+                      class="rounded-md border px-2 py-0.5 text-xs font-bold whitespace-nowrap tabular-nums transition-colors"
+                      [class]="voucher() === v ? 'border-primary bg-primary text-primary-foreground' : 'border-border text-foreground hover:border-primary'"
+                      (click)="toggleVoucher(v)"
+                    >
+                      {{ v }}
+                    </button>
+                  </app-tooltip>
+                }
+              </td>
+
               <!-- ASSINET -->
               <td class="px-3 py-2 text-right align-top font-semibold tabular-nums text-foreground">{{ line.ledger?.amount | money }}</td>
               <td class="max-w-80 px-3 py-2 align-top">
@@ -294,10 +343,24 @@
             </tr>
           } @empty {
             <tr>
-              <td [attr.colspan]="editable() ? 6 : 5" class="px-3 py-8 text-center text-muted-foreground">{{ 'table.empty' | translate }}</td>
+              <td [attr.colspan]="editable() ? 7 : 6" class="px-3 py-8 text-center text-muted-foreground">{{ 'table.empty' | translate }}</td>
             </tr>
           }
         </tbody>
+        @if (visibleLines().length) {
+          <tfoot class="border-t-2 border-border bg-surface font-semibold text-foreground">
+            <tr>
+              <td class="px-3 py-2">{{ 'reconciliation.totalRows' | translate: { count: visibleTotals().count } }}</td>
+              <td class="px-3 py-2 text-right tabular-nums">{{ visibleTotals().bank | money }}</td>
+              <td class="px-3 py-2 text-center text-xs tabular-nums" [class]="visibleTotals().bank === visibleTotals().ledger ? 'text-success' : 'text-danger'">
+                {{ visibleTotals().bank - visibleTotals().ledger | money: true }}
+              </td>
+              <td></td>
+              <td class="px-3 py-2 text-right tabular-nums">{{ visibleTotals().ledger | money }}</td>
+              <td [attr.colspan]="editable() ? 2 : 1"></td>
+            </tr>
+          </tfoot>
+        }
       </table>
     </div>
   </div>
